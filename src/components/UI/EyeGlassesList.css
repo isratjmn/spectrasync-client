@@ -1,0 +1,12 @@
+@media (max-width: 968px) {
+	.table-responsive .ant-table {
+		overflow-x: auto;
+	}
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+	.table-responsive .ant-table td,
+	.table-responsive .ant-table th {
+		overflow-x: auto;
+		width: 100%;
+	}
+}
