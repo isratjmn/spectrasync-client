@@ -26,12 +26,18 @@ const items: MenuProps["items"] = [
 		children: [
 			{
 				key: "Add Glasses",
-				label: <NavLink to="/product-list">Add Eye Glasses</NavLink>,
+				label: (
+					<NavLink
+						to="/add-product"
+					>
+						Add Eye Glasses
+					</NavLink>
+				),
 				icon: <PlusOutlined />,
 			},
 			{
 				key: "EyeGlasses List",
-				label: <NavLink to="/sale-list">Eye Glasses list</NavLink>,
+				label: <NavLink to="/eyeglasses-list">Eye Glasses list</NavLink>,
 				icon: <UnorderedListOutlined />,
 			},
 		],

@@ -1,12 +1,12 @@
-## SpectraSync Eye Glasses Management Dashboard
+### SpectraSync Eye Glasses Management Dashboard
 
-### Live Project Link: https://moonlit-tapioca-f8acb0.netlify.app/
+#### Live Project Link: https://moonlit-tapioca-f8acb0.netlify.app/
 
-### Client Side Repository: https://github.com/Porgramming-Hero-web-course/l2b2-full-stack-a5-client-side-isratjmn
+#### Client Side Repository: https://github.com/Porgramming-Hero-web-course/l2b2-full-stack-a5-client-side-isratjmn
 
-### Server Side Repository: https://github.com/Porgramming-Hero-web-course/l2b2-full-stack-a5-server-side-isratjmn
+#### Server Side Repository: https://github.com/Porgramming-Hero-web-course/l2b2-full-stack-a5-server-side-isratjmn
 
-### Video Documentation Link: https://drive.google.com/file/d/14wifS3SNWlKdF7NRnItt0TF3QuT7fIw2/view?usp=sharing
+#### Video Documentation Link: https://drive.google.com/file/d/14wifS3SNWlKdF7NRnItt0TF3QuT7fIw2/view?usp=sharing
 
 - The Eye Glasses Management Dashboard is a comprehensive application designed to efficiently manage eyeglasses inventory, track sales, and analyze sales history. It incorporates features such as authentication, CRUD operations, state management, real-time UI updates, and eyeglasses filtering.
 
@@ -25,7 +25,7 @@
 
 - React-Router DOM
 - TypeScript
+- axios
 - Redux for state management
 - JWT (JSON Web Tokens) for authentication
 - RTK Query for efficient CRUD operations
-- axios

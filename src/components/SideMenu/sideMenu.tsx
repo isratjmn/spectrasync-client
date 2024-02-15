@@ -23,12 +23,12 @@
 // 		},
 // 		{
 // 			label: "Eye Glass",
-// 			key: "/product-list",
+// 			key: "/add-product",
 // 			icon: <ShopOutlined />,
 // 		},
 // 		{
 // 			label: "Eye Glass List",
-// 			key: "/sale-list",
+// 			key: "/eyeglasses-list",
 // 			icon: <ShopOutlined />,
 // 		},
 // 	];
@@ -90,12 +90,12 @@ function SideMenu() {
 		},
 		{
 			label: "Eye Glass",
-			key: "/product-list",
+			key: "/add-product",
 			icon: <ShopOutlined />,
 		},
 		{
 			label: "Eye Glass List",
-			key: "/sale-list",
+			key: "/eyeglasses-list",
 			icon: <ShopOutlined />,
 		},
 	];

@@ -12,48 +12,51 @@ import {
 	Form,
 	Col,
 	Row,
+	Pagination,
 } from "antd";
 import {
 	useGetEyeGlassesQuery,
 	useUpdateEyeGlassMutation,
 	useDeleteEyeGlassesMutation,
 	useBulkDeleteEyeGlassesMutation,
-} from "../../redux/Features/product/productApi"; // Import custom hooks from productApi file
+} from "../../redux/Features/product/productApi";
 import "./EyeGlassesList.css";
-import { useMediaQuery } from "react-responsive";
 import {
 	DeleteOutlined,
 	EditOutlined,
+	SearchOutlined,
 	ShoppingOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 import { useAddSaleMutation } from "../../redux/Features/sales/salesApi";
 import { Sale } from "../../redux/Features/sales/salesType";
+import SearchFilter from "./SearchFilter";
+// import { useMediaQuery } from "react-responsive";
+
 const EyeglassesList = () => {
+	const [page, setPage] = useState<number>(1);
+	const [pageSize, setPageSize] = useState<number>(6);
 	const {
 		data: eyeglassesList,
 		isLoading,
 		isError,
-	} = useGetEyeGlassesQuery("");
-	// const [, setDataSource] = useState([]);
-	const [deleteEyeGlasses] = useDeleteEyeGlassesMutation(); // Mutation hook for deleting eyeglasses
-	const [updateEyeGlasses] = useUpdateEyeGlassMutation(); // Mutation hook for updating eyeglasses
-	const [isModalVisible, setIsModalVisible] = useState(false); // State for controlling visibility of update modal
-	const [addSale] = useAddSaleMutation(); // Mutation hook for adding sale
-	const [form] = Form.useForm(); // Form hook for managing form data
-	const [selectedEyeglass, setSelectedEyeglass] = useState<any>(null); // State for storing selected eyeglass
-	const [, setIsLoading] = useState(false); // State for loading indicator
-	const [sellModalVisible, setSellModalVisible] = useState(false); // State for controlling visibility of sell modal
-	const [selectedRows, setSelectedRows] = useState<string[]>([]); // State for storing selected rows for bulk delete
-	const [bulkDeleteEyeGlasses] = useBulkDeleteEyeGlassesMutation(); // Mutation hook for bulk deleting eyeglasses
-	/* useEffect(() => {
-		if (eyeglassesList) {
-			const filteredEyeglasses = eyeglassesList.filter(
-				(eyeglass: { isDeleted: any }) => !eyeglass.isDeleted
-			);
-			setDataSource(filteredEyeglasses);
-		}
-	}, [eyeglassesList]); */
+	} = useGetEyeGlassesQuery({ page, limit: pageSize });
+
+	console.log("Eyeglasses list data:", eyeglassesList);
+	const [selectedRows, setSelectedRows] = useState<string[]>([]);
+	const [deleteEyeGlasses] = useDeleteEyeGlassesMutation();
+	const [updateEyeGlasses] = useUpdateEyeGlassMutation();
+	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [addSale] = useAddSaleMutation();
+	const [form] = Form.useForm();
+	const [selectedEyeglass, setSelectedEyeglass] = useState<any>(null);
+	const [, setIsLoading] = useState(false);
+	const [sellModalVisible, setSellModalVisible] = useState(false);
+	const [bulkDeleteEyeGlasses] = useBulkDeleteEyeGlassesMutation();
+	const handlePageChange = (page: number, pageSize?: number) => {
+		setPage(page);
+		setPageSize(pageSize || 6);
+	};
 	//? Function to show update modal and set selected eyeglass
 	const showModal = (eyeglass: any) => {
 		setSelectedEyeglass(eyeglass);
@@ -75,17 +78,6 @@ const EyeglassesList = () => {
 			);
 		}
 	};
-	//? Media query hooks for responsive design
-	const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
-	const isMediumScreen = useMediaQuery({
-		query: "(min-width: 769px) and (max-width: 1024px)",
-	});
-	let pageSize = 6;
-	if (isSmallScreen) {
-		pageSize = 4;
-	} else if (isMediumScreen) {
-		pageSize = 5;
-	}
 	//? Function to handle deletion of eyeglass
 	const handleDelete = (id: any) => {
 		console.log(id);
@@ -154,6 +146,17 @@ const EyeglassesList = () => {
 			message.error("Failed to sell product. Please try again later.");
 		}
 	};
+
+	/* const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
+	const isMediumScreen = useMediaQuery({
+		query: "(min-width: 769px) and (max-width: 1024px)",
+	});
+	let pageSize = 6;
+	if (isSmallScreen) {
+		pageSize = 4;
+	} else if (isMediumScreen) {
+		pageSize = 5;
+	} */
 	//? Define columns for the table
 	const columns = [
 		{
@@ -182,34 +185,128 @@ const EyeglassesList = () => {
 			),
 		},
 		{
+			title: <b>profile Image</b>,
+			dataIndex: "profileImg",
+			key: "profileImg",
+			render: (profileImg: string) => (
+				<img
+					src={profileImg}
+					alt="Profile"
+					style={{ maxWidth: "50px" }}
+				/>
+			),
+		},
+		{
 			title: <b>Name</b>,
 			dataIndex: "name",
 			key: "name",
+			filterDropdown: ({
+				setSelectedKeys,
+				confirm,
+				clearFilters,
+			}: any) => (
+				<SearchFilter
+					placeholder="Search name"
+					filterFn={(value: any) =>
+						setSelectedKeys(value ? [value] : [])
+					}
+					confirm={confirm}
+					clearFilters={clearFilters}
+				/>
+			),
+			filterIcon: (filtered: any) => (
+				<SearchOutlined
+					style={{ color: filtered ? "#1890ff" : undefined }}
+				/>
+			),
+			onFilter: (value: any, record: any) =>
+				record.name.toLowerCase().includes(value.toLowerCase()),
 		},
 		{
 			title: <b>Frame Material</b>,
 			dataIndex: "frameMaterial",
 			key: "frameMaterial",
+			filters: [
+				{ text: "Plastic", value: "Plastic" },
+				{ text: "Metal", value: "Metal" },
+				{ text: "Acetate", value: "Acetate" },
+				{ text: "Wood", value: "Wood" },
+			],
+			onFilter: (value: string, record: any) =>
+				record.frameMaterial.includes(value),
 		},
 		{
 			title: <b>Frame Shape</b>,
 			dataIndex: "frameShape",
 			key: "frameShape",
+			filterDropdown: ({
+				setSelectedKeys,
+				confirm,
+				clearFilters,
+			}: any) => (
+				<SearchFilter
+					placeholder="Search Frame Shape"
+					filterFn={(value: any) =>
+						setSelectedKeys(value ? [value] : [])
+					}
+					confirm={confirm}
+					clearFilters={clearFilters}
+				/>
+			),
+			filterIcon: (filtered: any) => (
+				<SearchOutlined
+					style={{ color: filtered ? "#1890ff" : undefined }}
+				/>
+			),
+			onFilter: (value: any, record: any) =>
+				record.frameShape.toLowerCase().includes(value.toLowerCase()),
 		},
 		{
 			title: <b>Lens Type</b>,
 			dataIndex: "lensType",
 			key: "lensType",
+			filterDropdown: ({
+				setSelectedKeys,
+				confirm,
+				clearFilters,
+			}: any) => (
+				<SearchFilter
+					placeholder="Search Lens Type"
+					filterFn={(value: any) =>
+						setSelectedKeys(value ? [value] : [])
+					}
+					confirm={confirm}
+					clearFilters={clearFilters}
+				/>
+			),
+			filterIcon: (filtered: any) => (
+				<SearchOutlined
+					style={{ color: filtered ? "#1890ff" : undefined }}
+				/>
+			),
+			onFilter: (value: string, record: { lensType: string }) =>
+				record.lensType.toLowerCase().includes(value.toLowerCase()),
 		},
 		{
 			title: <b>Brand</b>,
 			dataIndex: "brand",
 			key: "brand",
+			filters: [
+				{ text: "Ray-Ban", value: "Ray-Ban" },
+				{ text: "Oakley", value: "Oakley" },
+				{ text: "Gucci", value: "Gucci" },
+				{ text: "Prada", value: "Prada" },
+				{ text: "Versace", value: "Versace" },
+				{ text: "Tom Ford", value: "Tom Ford" },
+			],
+			onFilter: (value: any, record: any) => record.brand.includes(value),
 		},
 		{
 			title: <b>Price</b>,
 			dataIndex: "price",
 			key: "price",
+			sorter: (a: { price: number }, b: { price: number }) =>
+				a.price - b.price,
 		},
 		{
 			title: (
@@ -217,6 +314,8 @@ const EyeglassesList = () => {
 			),
 			dataIndex: "quantity",
 			key: "quantity",
+			sorter: (a: { quantity: number }, b: { quantity: number }) =>
+				a.quantity - b.quantity,
 			render: (text: any) => (
 				<span style={{ fontWeight: "700", color: "blue" }}>{text}</span>
 			),
@@ -225,16 +324,33 @@ const EyeglassesList = () => {
 			title: <b>Color</b>,
 			dataIndex: "color",
 			key: "color",
+			filters: [
+				{ text: "Black", value: "Black" },
+				{ text: "Brown", value: "Brown" },
+				{ text: "Silver", value: "Silver" },
+				{ text: "Gold", value: "Gold" },
+				{ text: "Blue", value: "Blue" },
+			],
+			onFilter: (value: any, record: any) => record.color.includes(value),
 		},
 		{
 			title: <b>Price Range</b>,
 			dataIndex: "priceRange",
 			key: "priceRange",
+			sorter: (a: { priceRange: number }, b: { priceRange: number }) =>
+				a.priceRange - b.priceRange,
 		},
 		{
 			title: <b>Gender</b>,
 			dataIndex: "gender",
 			key: "gender",
+			filters: [
+				{ text: "Male", value: "Male" },
+				{ text: "Female", value: "Female" },
+				{ text: "Others", value: "Others" },
+			],
+			onFilter: (value: string, record: any) =>
+				record.gender.includes(value),
 		},
 		{
 			title: <b>Action</b>,
@@ -275,9 +391,6 @@ const EyeglassesList = () => {
 	if (isLoading)
 		return <Spin style={{ alignItems: "center" }} size="large" />;
 	if (isError) return <div>Error Fetching Data</div>;
-
-	//? Reverse the order of eyeglasses list
-	const reversedEyeglassesList = [...eyeglassesList].reverse();
 
 	//? Sell modal component
 	const sellModal = (
@@ -341,10 +454,16 @@ const EyeglassesList = () => {
 				</Button>
 			</div>
 			<Table
-				dataSource={reversedEyeglassesList}
+				dataSource={eyeglassesList?.data}
 				columns={columns}
-				pagination={{ pageSize }}
+				pagination={false}
 				scroll={{ x: "auto" }}
+			/>
+			<Pagination
+				current={page}
+				total={eyeglassesList?.meta?.total || 0}
+				pageSize={eyeglassesList?.meta?.limit}
+				onChange={handlePageChange}
 			/>
 			{sellModal}
 			<Modal

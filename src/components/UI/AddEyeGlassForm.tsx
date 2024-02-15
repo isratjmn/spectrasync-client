@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import {
 	Card,
 	Input,
@@ -10,50 +9,48 @@ import {
 	Form,
 	Col,
 	Row,
-	// Upload,
+	Upload,
 } from "antd";
-
 import { useAddEyeGlassesMutation } from "../../redux/Features/product/productApi";
-// import { UploadOutlined } from "@ant-design/icons";
-
+import { useState } from "react";
+import { UploadOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const AddEyeGlassForm = () => {
 	const [form] = Form.useForm();
 	const [addEyeGlasses, { isLoading }] = useAddEyeGlassesMutation();
-	// const [fileList, setFileList] = useState<any[]>([]);
-
+	const [fileList, setFileList] = useState<any[]>([]);
 	const onFinish = async (values: {
+		image: string;
 		price: number;
 		quantity: number;
-		profileImg: (string | Blob)[];
 	}) => {
 		try {
 			values.price = Number(values.price);
 			values.quantity = Number(values.quantity);
 			const formData = new FormData();
 			formData.append("data", JSON.stringify(values));
-			formData.append("file", values.profileImg?.[0]);
+			formData.append("file", values.image);
 			await addEyeGlasses(formData).unwrap();
 			message.success("Eyeglasses added successfully");
 			form.resetFields();
-			// setFileList([]);
+			setFileList([]);
 		} catch (error) {
 			message.error("Failed to add eyeglasses. Please try again later.");
 		}
 	};
-	/* const onChange = ({ fileList }: { fileList: any[] }) => {
+	const onChange = ({ fileList }: { fileList: any[] }) => {
 		const filteredList = fileList.filter(
 			(file: { type: string | string[]; name: any }) => {
 				if (file.type.includes("image")) {
 					return true;
 				}
-				message.error(`${file.name} is not an image file`);
+				message.error(`${file.name} is not an Image File`);
 				return false;
 			}
 		);
 		setFileList(filteredList);
-	}; */
+	};
 	/* const uploadButton = (
 		<div
 			style={{
@@ -102,7 +99,7 @@ const AddEyeGlassForm = () => {
 									rules={[
 										{
 											required: true,
-											message: "Please input the name!",
+											message: "Please input the Name!!",
 										},
 									]}
 								>
@@ -135,7 +132,7 @@ const AddEyeGlassForm = () => {
 									rules={[
 										{
 											required: true,
-											message: "Please input the price!",
+											message: "Please input the Price!",
 										},
 									]}
 								>
@@ -153,7 +150,7 @@ const AddEyeGlassForm = () => {
 										{
 											required: true,
 											message:
-												"Please input the quantity!",
+												"Please input the Quantity!",
 										},
 									]}
 								>
@@ -175,7 +172,7 @@ const AddEyeGlassForm = () => {
 										{
 											required: true,
 											message:
-												"Please select the frame material!",
+												"Please select the Frame Material!",
 										},
 									]}
 								>
@@ -197,6 +194,13 @@ const AddEyeGlassForm = () => {
 								<Form.Item
 									label="Price Range"
 									name="priceRange"
+									rules={[
+										{
+											required: true,
+											message:
+												"Please select the Price Range!",
+										},
+									]}
 								>
 									<Input
 										placeholder="Price Range"
@@ -212,7 +216,7 @@ const AddEyeGlassForm = () => {
 										{
 											required: true,
 											message:
-												"Please select the gender!",
+												"Please select the Gender!",
 										},
 									]}
 								>
@@ -232,38 +236,111 @@ const AddEyeGlassForm = () => {
 								<Form.Item
 									label="Frame Shape"
 									name="frameShape"
+									rules={[
+										{
+											required: true,
+											message:
+												"Please select the Frame Shape!",
+										},
+									]}
 								>
 									<Input placeholder="Frame Shape" />
 								</Form.Item>
 							</Col>
 							<Col span={12}>
-								<Form.Item label="Lens Type" name="lensType">
+								<Form.Item
+									label="Lens Type"
+									name="lensType"
+									rules={[
+										{
+											required: true,
+											message:
+												"Please select the Lens Type!",
+										},
+									]}
+								>
 									<Input placeholder="Lens Type" />
 								</Form.Item>
 							</Col>
 						</Row>
 						<Row gutter={[16, 16]}>
 							<Col span={12}>
-								<Form.Item label="Brand" name="brand">
+								{/* <Form.Item
+									label="Brand"
+									name="brand"
+									rules={[
+										{
+											required: true,
+											message: "Please select the Brand!",
+										},
+									]}
+								>
 									<Input placeholder="Brand" />
+								</Form.Item> */}
+								<Form.Item
+									label="Brand"
+									name="brand"
+									rules={[
+										{
+											required: true,
+											message: "Please select the Brand!",
+										},
+									]}
+								>
+									<Select placeholder="Select Brand">
+										<Option value="Ray-Ban">Ray-Ban</Option>
+										<Option value="Oakley">Oakley</Option>
+										<Option value="Prada">Prada</Option>
+										<Option value="Gucci">Gucci</Option>
+										<Option value="Versace">Versace</Option>
+										<Option value="Dolce & Gabbana">
+											Dolce & Gabbana
+										</Option>
+										<Option value="Armani">Armani</Option>
+									</Select>
 								</Form.Item>
 							</Col>
 							<Col span={12}>
-								<Form.Item label="Color" name="color">
-									<Input placeholder="Color" />
+								<Form.Item
+									label="Color"
+									name="color"
+									rules={[
+										{
+											required: true,
+											message: "Please select the Color!",
+										},
+									]}
+								>
+									<Select placeholder="Select Color">
+										<Select.Option value="Black">
+											Black
+										</Select.Option>
+										<Select.Option value="Brown">
+											Brown
+										</Select.Option>
+										<Select.Option value="Silver">
+											Silver
+										</Select.Option>
+										<Select.Option value="Gold">
+											Gold
+										</Select.Option>
+										<Select.Option value="Blue">
+											Blue
+										</Select.Option>
+									</Select>
 								</Form.Item>
 							</Col>
 						</Row>
-						{/* <Row gutter={[16, 16]}>
+						<Row gutter={[16, 16]}>
 							<Col span={24}>
 								<Form.Item
-									label="Upload Image"
+									// label="Upload Image"
 									name="profileImg"
 									valuePropName="fileList"
 									getValueFromEvent={onChange}
 									style={{ marginBottom: "2px" }}
 								>
-									<Upload
+									{/* <Upload
 										beforeUpload={() => false}
 										listType="picture-card"
 										fileList={fileList}
@@ -272,10 +349,21 @@ const AddEyeGlassForm = () => {
 										{fileList.length >= 1
 											? null
 											: uploadButton}
+									</Upload> */}
+									<Upload
+										// action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+										fileList={fileList}
+										onChange={onChange}
+										maxCount={1}
+										listType="picture"
+									>
+										<Button icon={<UploadOutlined />}>
+											Upload Image
+										</Button>
 									</Upload>
 								</Form.Item>
 							</Col>
-						</Row> */}
+						</Row>
 						<Form.Item>
 							<Button
 								type="primary"

@@ -5,20 +5,19 @@ export const getOrders = () => {
 export const getRevenue = () => {
 	return fetch("https://dummyjson.com/carts").then((res) => res.json());
 };
-export const getOrderData = () => {
-	return fetch("https://spectrasync-server.vercel.app/api/eye-glasses").then((res) =>
+export const getInventory = () => {
+	return fetch("http://localhost:5000/api/eye-glasses").then((res) =>
 		res.json()
 	);
 };
-
-export const getInventory = () => {
-	return fetch("https://dummyjson.com/products").then((res) => res.json());
+export const getOrderData = () => {
+	return fetch("https://spectrasync-server.vercel.app/api/eye-glasses").then(
+		(res) => res.json()
+	);
 };
 
 export const getCustomers = () => {
-	return fetch("https://dummyjson.com/users").then((res) =>
-		res.json()
-	);
+	return fetch("https://dummyjson.com/users").then((res) => res.json());
 };
 
 export const getComments = () => {

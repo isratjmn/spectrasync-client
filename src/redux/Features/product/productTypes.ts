@@ -1,3 +1,5 @@
+import { BaseQueryApi } from "@reduxjs/toolkit/query";
+
 export interface EyeglassesAttributes {
 	name: string;
 	profileImg?: string | undefined;
@@ -28,3 +30,32 @@ export interface Product {
 	gender: string;
 	isDeleted: boolean;
 }
+
+export type TError = {
+	data: {
+		message: string;
+		success: boolean;
+	};
+	status: number;
+};
+
+export type TMeta = {
+	total: number;
+	page: number;
+	limit: number;
+	totalPages: number;
+};
+export type TResponz<T> = {
+	data?: T;
+	error?: TError;
+	meta?: TMeta;
+	success: boolean;
+	message: string;
+};
+
+export type TResponseRedux<T> = TResponz<T> & BaseQueryApi;
+
+export type TQueryParam = {
+	text: string;
+	value: string | number;
+};

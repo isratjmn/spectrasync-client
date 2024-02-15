@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Typography, message } from "antd";
+import { Button, Select, Typography, message } from "antd";
 import "./Regisster.css";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useAppDispatch } from "../../redux/hooks";
 import { registerUser } from "../../redux/Features/auth/authSlice";
 import { useRegisterMutation } from "../../redux/Features/auth/authApi";
+const { Option } = Select;
 
 interface FormData {
 	username: string;
@@ -46,7 +47,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledButton = styled(Button)`
-	width: 30%;
+	width: 100%;
 `;
 
 const Register = () => {
@@ -54,7 +55,7 @@ const Register = () => {
 	const dispatch = useAppDispatch();
 	const { register, handleSubmit } = useForm<FormData>({
 		defaultValues: { role: "user" },
-	}); // Set default value for role
+	});
 	const [registerData] = useRegisterMutation();
 	const onSubmit = async (data: FormData) => {
 		try {
@@ -83,13 +84,18 @@ const Register = () => {
 	return (
 		<>
 			<div className="register-container">
-				<StyledForm onSubmit={handleSubmit(onSubmit)}>
+				<StyledForm
+					onSubmit={handleSubmit(onSubmit)}
+					style={{
+						padding: "30px",
+					}}
+				>
 					<Typography.Title
 						style={{
 							textAlign: "center",
 							fontWeight: 700,
 							fontSize: "30px",
-							marginBottom: "30px",
+							marginBottom: "40px",
 							marginTop: "20px",
 							color: "#000",
 						}}
@@ -106,6 +112,7 @@ const Register = () => {
 							})}
 						/>
 					</StyledLabel>
+
 					<StyledLabel>
 						Email:
 						<StyledInput
@@ -115,6 +122,7 @@ const Register = () => {
 							})}
 						/>
 					</StyledLabel>
+
 					<StyledLabel>
 						Password:
 						<StyledInput
@@ -124,20 +132,30 @@ const Register = () => {
 							})}
 						/>
 					</StyledLabel>
+
 					<StyledLabel>
 						Role:
-						<StyledInput
-							type="text"
-							{...register("role", {
-								required: "Please enter your role",
-							})}
-						/>
+						<Select
+							defaultValue="user"
+							onChange={(value) => console.log(value)}
+							style={{ width: "100%", marginBottom: "15px" }}
+						>
+							<Option value="user">User</Option>
+							<Option value="manager">Manager</Option>
+						</Select>
 					</StyledLabel>
 					<StyledButton type="primary" htmlType="submit">
 						Register
 					</StyledButton>
-					<Typography style={{ marginTop: "20px" }}>
-						Already have an account?{" "}
+					<Typography
+						style={{
+							marginTop: "20px",
+							justifyContent: "center",
+							display: "flex",
+							gap: 5,
+						}}
+					>
+						Already have an account? Please
 						<Link style={{ fontWeight: 800 }} to="/login">
 							Login
 						</Link>
