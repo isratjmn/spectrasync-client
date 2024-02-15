@@ -31,39 +31,27 @@ const AddEyeGlassForm = () => {
 			const formData = new FormData();
 			formData.append("data", JSON.stringify(values));
 			formData.append("file", values.image);
-			await addEyeGlasses(formData).unwrap();
+			console.log(values.image);
+
+			// await addEyeGlasses(formData).unwrap();
+			addEyeGlasses(formData);
 			message.success("Eyeglasses added successfully");
 			form.resetFields();
-			setFileList([]);
+			// setFileList([]);
 		} catch (error) {
 			message.error("Failed to add eyeglasses. Please try again later.");
 		}
 	};
 	const onChange = ({ fileList }: { fileList: any[] }) => {
-		const filteredList = fileList.filter(
-			(file: { type: string | string[]; name: any }) => {
-				if (file.type.includes("image")) {
-					return true;
-				}
-				message.error(`${file.name} is not an Image File`);
-				return false;
+		const filteredList = fileList.map((file) => {
+			if (file.response && file.response.url) {
+				file.url = file.response.url;
 			}
-		);
+			return file;
+		});
 		setFileList(filteredList);
 	};
-	/* const uploadButton = (
-		<div
-			style={{
-				display: "inline-block",
-				marginRight: "4px",
-				color: "#1890ff",
-				fontSize: "13px",
-			}}
-		>
-			<UploadOutlined />
-			<div style={{ marginTop: 2 }}>Upload</div>
-		</div>
-	); */
+
 	return (
 		<div
 			style={{
@@ -265,18 +253,6 @@ const AddEyeGlassForm = () => {
 						</Row>
 						<Row gutter={[16, 16]}>
 							<Col span={12}>
-								{/* <Form.Item
-									label="Brand"
-									name="brand"
-									rules={[
-										{
-											required: true,
-											message: "Please select the Brand!",
-										},
-									]}
-								>
-									<Input placeholder="Brand" />
-								</Form.Item> */}
 								<Form.Item
 									label="Brand"
 									name="brand"
@@ -334,27 +310,14 @@ const AddEyeGlassForm = () => {
 						<Row gutter={[16, 16]}>
 							<Col span={24}>
 								<Form.Item
-									// label="Upload Image"
-									name="profileImg"
-									valuePropName="fileList"
-									getValueFromEvent={onChange}
+									name="image"
 									style={{ marginBottom: "2px" }}
 								>
-									{/* <Upload
-										beforeUpload={() => false}
-										listType="picture-card"
-										fileList={fileList}
-										onChange={onChange}
-									>
-										{fileList.length >= 1
-											? null
-											: uploadButton}
-									</Upload> */}
 									<Upload
-										// action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-										fileList={fileList}
-										onChange={onChange}
 										maxCount={1}
+										action="https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&height=900&width=1600&fit=bounds"
+										onChange={onChange}
+										fileList={fileList}
 										listType="picture"
 									>
 										<Button icon={<UploadOutlined />}>

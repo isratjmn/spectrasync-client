@@ -37,7 +37,7 @@ const items: MenuProps["items"] = [
 			},
 			{
 				key: "EyeGlasses List",
-				label: <NavLink to="/eyeglasses-list">Eye Glasses list</NavLink>,
+				label: <NavLink to="/sale-list">Eye Glasses list</NavLink>,
 				icon: <UnorderedListOutlined />,
 			},
 		],

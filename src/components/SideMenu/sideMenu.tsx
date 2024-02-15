@@ -28,7 +28,7 @@
 // 		},
 // 		{
 // 			label: "Eye Glass List",
-// 			key: "/eyeglasses-list",
+// 			key: "/sale-list",
 // 			icon: <ShopOutlined />,
 // 		},
 // 	];
@@ -95,7 +95,7 @@ function SideMenu() {
 		},
 		{
 			label: "Eye Glass List",
-			key: "/eyeglasses-list",
+			key: "/sale-list",
 			icon: <ShopOutlined />,
 		},
 	];
