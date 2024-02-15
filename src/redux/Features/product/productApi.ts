@@ -18,7 +18,6 @@ export const productApi = baseApi.injectEndpoints({
 		// 	}),
 		// 	providesTags: ["all-eyeGlasses"],
 		// }),
-
 		/* getEyeGlasses: builder.query({
 			query: (args) => {
 				// console.log(args);

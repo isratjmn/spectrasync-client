@@ -28,28 +28,24 @@ const AddEyeGlassForm = () => {
 		try {
 			values.price = Number(values.price);
 			values.quantity = Number(values.quantity);
+
 			const formData = new FormData();
 			formData.append("data", JSON.stringify(values));
 			formData.append("file", values.image);
 			console.log(values.image);
-
 			// await addEyeGlasses(formData).unwrap();
-			addEyeGlasses(formData);
-			message.success("Eyeglasses added successfully");
+
+			await addEyeGlasses(formData);
+
+			message.success("Eyeglasses Added Successfully!!");
 			form.resetFields();
-			// setFileList([]);
+			setFileList([]);
 		} catch (error) {
-			message.error("Failed to add eyeglasses. Please try again later.");
+			message.error("Failed to add Eyeglasses. Please try again later.");
 		}
 	};
 	const onChange = ({ fileList }: { fileList: any[] }) => {
-		const filteredList = fileList.map((file) => {
-			if (file.response && file.response.url) {
-				file.url = file.response.url;
-			}
-			return file;
-		});
-		setFileList(filteredList);
+		setFileList(fileList);
 	};
 
 	return (
@@ -314,10 +310,12 @@ const AddEyeGlassForm = () => {
 									style={{ marginBottom: "2px" }}
 								>
 									<Upload
-										maxCount={1}
-										action="https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg?format=jpg&crop=4560,2565,x790,y784,safe&height=900&width=1600&fit=bounds"
-										onChange={onChange}
 										fileList={fileList}
+										onChange={({ fileList }) =>
+											onChange({ fileList })
+										}
+										beforeUpload={() => false}
+										maxCount={1}
 										listType="picture"
 									>
 										<Button icon={<UploadOutlined />}>

@@ -6,6 +6,13 @@ export const baseApi = createApi({
 		baseUrl: "http://localhost:5000/api",
 		credentials: "include",
 	}),
-	tagTypes: ["all-eyeGlasses"],
+	tagTypes: [
+		"all-eyeGlasses",
+		"sales",
+		"weekly-sales",
+		"monthly-sales",
+		"yearly-sales",
+		"daily-sales",
+	],
 	endpoints: () => ({}),
 });

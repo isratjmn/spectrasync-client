@@ -8,6 +8,8 @@ export const salesApi = baseApi.injectEndpoints({
 				url: "/sales",
 				method: "GET",
 			}),
+			providesTags: ["sales"],
+
 		}),
 		addSale: builder.mutation({
 			query: (salesData: Sale) => ({
@@ -15,36 +17,47 @@ export const salesApi = baseApi.injectEndpoints({
 				method: "POST",
 				body: salesData,
 			}),
+			invalidatesTags: ["sales"],
 		}),
 		deleteSale: builder.mutation<void, string>({
 			query: (saleId) => ({
 				url: `/${saleId}`,
 				method: "DELETE",
 			}),
+			invalidatesTags: ["sales"],
+
 		}),
 		fetchWeeklySales: builder.query({
 			query: () => ({
 				url: "/sales/weekly",
 				method: "GET",
 			}),
+			providesTags: ["weekly-sales"],
+
 		}),
 		fetchMonthlySales: builder.query({
 			query: () => ({
 				url: "/sales/monthly",
 				method: "GET",
 			}),
+			providesTags: ["monthly-sales"],
+
 		}),
 		fetchYearlySales: builder.query({
 			query: () => ({
 				url: "/sales/yearly",
 				method: "GET",
 			}),
+			providesTags: ["yearly-sales"],
+
 		}),
 		fetchDailySales: builder.query({
 			query: () => ({
 				url: "/sales/daily",
 				method: "GET",
 			}),
+			providesTags: ["daily-sales"],
+
 		}),
 	}),
 });

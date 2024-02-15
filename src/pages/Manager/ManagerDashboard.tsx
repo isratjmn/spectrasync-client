@@ -28,7 +28,6 @@ ChartJS.register(
 	Tooltip,
 	Legend
 );
-
 function ManagerDashboard() {
 	const [orders, setOrders] = useState<number>(0);
 	const [inventory, setInventory] = useState<number>(0);
@@ -121,13 +120,11 @@ function ManagerDashboard() {
 		</div>
 	);
 }
-
 interface DashboardCardProps {
 	icon: JSX.Element;
 	title: string;
 	value: number;
 }
-
 function DashboardCard({ title, value, icon }: DashboardCardProps) {
 	return (
 		<Card style={{ width: 300, maxWidth: "300px", marginBottom: 20 }}>
@@ -185,7 +182,6 @@ function DashboardCard({ title, value, icon }: DashboardCardProps) {
 		</Card>
 	);
 }
-
 function RecentOrders() {
 	const [weeklySalesData, setWeeklySalesData] = useState<any[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);

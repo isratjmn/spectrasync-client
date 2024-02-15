@@ -80,7 +80,6 @@ const EyeglassesList = () => {
 	};
 	//? Function to handle deletion of eyeglass
 	const handleDelete = (id: any) => {
-		console.log(id);
 		try {
 			deleteEyeGlasses(id).then((res) => {
 				if ("data" in res && res.data?.success) {
@@ -492,7 +491,12 @@ const EyeglassesList = () => {
 							<Form.Item
 								name="name"
 								label="Name"
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message: "Please enter the name",
+									},
+								]}
 							>
 								<Input />
 							</Form.Item>
@@ -501,7 +505,13 @@ const EyeglassesList = () => {
 							<Form.Item
 								name="frameMaterial"
 								label="Frame Material"
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message:
+											"Please enter the Frame Material",
+									},
+								]}
 							>
 								<Input />
 							</Form.Item>
@@ -512,7 +522,12 @@ const EyeglassesList = () => {
 							<Form.Item
 								name="frameShape"
 								label="Frame Shape"
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message: "Please enter the Frame Shape",
+									},
+								]}
 							>
 								<Input />
 							</Form.Item>
@@ -521,7 +536,12 @@ const EyeglassesList = () => {
 							<Form.Item
 								name="lensType"
 								label="Lens Type"
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message: "Please enter the Lens Type",
+									},
+								]}
 							>
 								<Input />
 							</Form.Item>
@@ -532,7 +552,12 @@ const EyeglassesList = () => {
 							<Form.Item
 								name="brand"
 								label="Brand"
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message: "Please enter the Brand Name",
+									},
+								]}
 							>
 								<Input />
 							</Form.Item>
@@ -541,7 +566,12 @@ const EyeglassesList = () => {
 							<Form.Item
 								name="price"
 								label="Price"
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message: "Please enter the Price",
+									},
+								]}
 							>
 								<Input type="number" />
 							</Form.Item>
@@ -561,7 +591,12 @@ const EyeglassesList = () => {
 										Quantity
 									</span>
 								}
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message: "Please enter the Quantity",
+									},
+								]}
 							>
 								<Input
 									type="number"
@@ -576,7 +611,12 @@ const EyeglassesList = () => {
 							<Form.Item
 								name="color"
 								label="Color"
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message: "Please enter the Color",
+									},
+								]}
 							>
 								<Input />
 							</Form.Item>
@@ -587,7 +627,12 @@ const EyeglassesList = () => {
 							<Form.Item
 								name="priceRange"
 								label="Price Range"
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message: "Please enter the PriceRange",
+									},
+								]}
 							>
 								<Input type="number" />
 							</Form.Item>
@@ -596,7 +641,12 @@ const EyeglassesList = () => {
 							<Form.Item
 								name="gender"
 								label="Gender"
-								rules={[{ required: true }]}
+								rules={[
+									{
+										required: true,
+										message: "Please enter the Gender",
+									},
+								]}
 							>
 								<Input />
 							</Form.Item>

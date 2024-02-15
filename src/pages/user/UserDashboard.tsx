@@ -28,12 +28,10 @@ ChartJS.register(
 	Tooltip,
 	Legend
 );
-
 function Dashboard() {
 	const [orders, setOrders] = useState<number>(0);
 	const [inventory, setInventory] = useState<number>(0);
 	const [customers, setCustomers] = useState<number>(0);
-
 	useEffect(() => {
 		getOrders().then((res) => {
 			setOrders(res.total);
@@ -45,7 +43,6 @@ function Dashboard() {
 			setCustomers(res.total);
 		});
 	}, []);
-
 	return (
 		<div
 			style={{
@@ -121,7 +118,6 @@ function Dashboard() {
 		</div>
 	);
 }
-
 interface DashboardCardProps {
 	icon: JSX.Element;
 	title: string;
