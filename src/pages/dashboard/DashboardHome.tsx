@@ -204,7 +204,7 @@ const DashboardHome = () => {
 								</svg>
 							</a>
 							<a
-								href="https://www.instagram.com"
+								href="#"
 								className="text-gray-500 hover:text-gray-900"
 								target="_blank"
 							>
@@ -236,7 +236,7 @@ const DashboardHome = () => {
 								</svg>
 							</a>
 							<a
-								href="https://github.com/nazmulhasannasim333"
+								href="#"
 								className="text-gray-500 hover:text-gray-900"
 								target="_blank"
 							>
