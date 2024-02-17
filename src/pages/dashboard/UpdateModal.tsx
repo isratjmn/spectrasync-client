@@ -20,7 +20,7 @@ const UpdateModal = ({ id }: { id: string }) => {
 	const [open, setOpen] = useState(false);
 	const { register, handleSubmit } = useForm();
 	const { data: glassData } = useGetEyeGlassQuery(id);
-	const image_upload_url = `https://api.imgbb.com/1/upload?key=${image_upload_token}`;
+	const image_upload_url = `https://api.imgbb.com/1/upload?expiration=600&key=${image_upload_token}`;
 	const [updateGlass] = useUpdateEyeGlassMutation();
 	const handleOpen = () => setOpen(!open);
 

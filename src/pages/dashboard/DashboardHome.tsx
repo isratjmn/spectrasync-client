@@ -119,18 +119,20 @@ const DashboardHome = () => {
 									</div>
 								</div>
 							</div>
-							<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
-								<div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
-									<div className="flex items-center justify-between ">
-										<h3 className="text-xl font-bold leading-none text-gray-900 mb-8">
-											Brands Total Products Quantity
+							<div className="w-full grid mx-auto grid-cols-1 lg:grid-cols-2 gap-4">
+								<div className="bg-white shadow rounded-lg mb-4 p-4 sm:p-6  h-full">
+									<div className="flex items-center mx-auto justify-between ">
+										<h3 className="text-xl leading-none text-deep-purple-900 font-extrabold mb-8">
+											Brands & Total Products Quantity
 										</h3>
 									</div>
-									<PieChartComponent />
+									<div className="mx-auto">
+										<PieChartComponent />
+									</div>
 								</div>
 								<div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
 									<div className="mb-4 flex items-center justify-between">
-										<h3 className="text-xl font-bold text-gray-900 mb-2">
+										<h3 className="text-xl mb-2 text-deep-purple-900 font-bold">
 											Brands Total Products Sales
 										</h3>
 									</div>
@@ -182,9 +184,9 @@ const DashboardHome = () => {
 								</a>
 							</li>
 						</ul>
-						<div className="flex sm:justify-center space-x-6">
+						<div className="flex ps-10 sm:justify-center space-x-6">
 							<a
-								href="https://www.facebook.com/nazmulhasannasim333"
+								href="https://www.facebook.com"
 								className="text-gray-500 hover:text-gray-900"
 								target="_blank"
 							>
@@ -202,7 +204,7 @@ const DashboardHome = () => {
 								</svg>
 							</a>
 							<a
-								href="https://www.instagram.com/nazmulhasannasim333/"
+								href="https://www.instagram.com"
 								className="text-gray-500 hover:text-gray-900"
 								target="_blank"
 							>
@@ -220,7 +222,7 @@ const DashboardHome = () => {
 								</svg>
 							</a>
 							<a
-								href="https://twitter.com/NHnasim333"
+								href="https://twitter.com"
 								className="text-gray-500 hover:text-gray-900"
 								target="_blank"
 							>

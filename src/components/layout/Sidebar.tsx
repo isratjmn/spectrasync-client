@@ -15,7 +15,6 @@ import {
 } from "@material-tailwind/react";
 import { RiAddBoxLine } from "react-icons/ri";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
-import { PowerIcon } from "@heroicons/react/24/solid";
 import {
 	MagnifyingGlassIcon,
 	Bars3Icon,
@@ -51,13 +50,12 @@ const Sidebar = () => {
 					shadow={false}
 					className="h-[calc(100vh)] mb-0 w-full p-6 bg-gray-800 rounded-none"
 				>
-					<div className="mb-4 mt-4 flex items-center gap-4 p-4">
-						<GiGooeyEyedSun className="h-10 w-10 text-white" />
-
+					<div className="mb-4 flex items-center gap-4 p-4 align-middle">
+						<GiGooeyEyedSun className="h-8 w-8 text-white" />
 						<Typography
 							placeholder="..."
 							variant="h5"
-							className="text-3xl text-white"
+							className="text-2xl text-white"
 						>
 							SpectraSync
 						</Typography>
@@ -116,7 +114,7 @@ const Sidebar = () => {
 
 						<ListItem onClick={handleLogout} placeholder="...">
 							<ListItemPrefix placeholder="...">
-								<PowerIcon className="h-5 w-5 text-gray-300" />
+								<RiLogoutBoxRLine className="h-6 w-6 text-gray-300" />
 							</ListItemPrefix>
 
 							<Link to="/login" className="text-white">
