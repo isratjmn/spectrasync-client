@@ -124,7 +124,7 @@ const SalesHistory = () => {
         <div className="mb-6 mt-4 flex items-center justify-between gap-8"></div>
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div>
-            <Typography placeholder={""} variant="h4" color="blue-gray">
+            <Typography placeholder={""} variant="h4" color="blue-gray" className="text-deep-purple-900 font-extrabold">
               Sales History
             </Typography>
           </div>

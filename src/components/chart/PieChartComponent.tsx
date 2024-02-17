@@ -5,7 +5,7 @@ import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { useGetAllEyeGlassQuery } from "../../redux/features/eyeGlass/eyeGlassApi";
 import { CardHeader } from "@material-tailwind/react";
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const COLORS = ["#A791E0", "#00C49F", "#3399FF", "#4133FF"];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({

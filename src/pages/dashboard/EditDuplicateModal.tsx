@@ -1,242 +1,271 @@
 import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
+	Button,
+	Dialog,
+	DialogHeader,
+	DialogBody,
+	DialogFooter,
+	Input,
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import {
-  useAddEyeGlassMutation,
-  useGetEyeGlassQuery,
+	useAddEyeGlassMutation,
+	useGetEyeGlassQuery,
 } from "../../redux/features/eyeGlass/eyeGlassApi";
 import { toast } from "sonner";
 const image_upload_token = import.meta.env.VITE_image_upload_token;
 
 const EditDuplicateModal = ({ id }: { id: string }) => {
-  const [open, setOpen] = useState(false);
-  const { register, handleSubmit } = useForm();
-  const { data: glassData } = useGetEyeGlassQuery(id);
-  const image_upload_url = `https://api.imgbb.com/1/upload?key=${image_upload_token}`;
-  const [addGlass] = useAddEyeGlassMutation();
-  const handleOpen = () => setOpen(!open);
+	const [open, setOpen] = useState(false);
+	const { register, handleSubmit } = useForm();
+	const { data: glassData } = useGetEyeGlassQuery(id);
+	const image_upload_url = `https://api.imgbb.com/1/upload?key=${image_upload_token}`;
+	const [addGlass] = useAddEyeGlassMutation();
+	const handleOpen = () => setOpen(!open);
 
-  const onSubmit = (data: FieldValues) => {
-    const toastId = toast.loading("Please wait...");
-    try {
-      const formData = new FormData();
-      formData.append("image", data.productImage[0]);
-      fetch(image_upload_url, {
-        method: "POST",
-        body: formData,
-      })
-        .then((res) => res.json())
-        .then(async (profileResponse) => {
-          if (profileResponse.success) {
-            const productImageURL = profileResponse.data.display_url;
-            const productPriceConvert = Number(data.productPrice);
-            const productQuantityConvert = Number(data.productQuantity);
+	const onSubmit = (data: FieldValues) => {
+		const toastId = toast.loading("Please wait...");
+		try {
+			const formData = new FormData();
+			formData.append("image", data.productImage[0]);
+			fetch(image_upload_url, {
+				method: "POST",
+				body: formData,
+			})
+				.then((res) => res.json())
+				.then(async (profileResponse) => {
+					if (profileResponse.success) {
+						const productImageURL =
+							profileResponse.data.display_url;
+						const productPriceConvert = Number(data.productPrice);
+						const productQuantityConvert = Number(
+							data.productQuantity
+						);
 
-            const {
-              productName,
-              frameMaterial,
-              frameShape,
-              lensType,
-              brand,
-              gender,
-              color,
-            } = data;
+						const {
+							productName,
+							frameMaterial,
+							frameShape,
+							lensType,
+							brand,
+							gender,
+							color,
+						} = data;
 
-            const glassData = {
-              productName,
-              productPrice: productPriceConvert,
-              productQuantity: productQuantityConvert,
-              productImage: productImageURL,
-              frameMaterial,
-              frameShape,
-              lensType,
-              brand,
-              gender,
-              color,
-            };
-            await addGlass(glassData);
-            toast.success("Product duplicate successfully!", {
-              id: toastId,
-              duration: 2000,
-            });
-            handleOpen();
-          }
-        });
-    } catch (error) {
-      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
-    }
-  };
+						const glassData = {
+							productName,
+							productPrice: productPriceConvert,
+							productQuantity: productQuantityConvert,
+							productImage: productImageURL,
+							frameMaterial,
+							frameShape,
+							lensType,
+							brand,
+							gender,
+							color,
+						};
+						await addGlass(glassData);
+						toast.success("Product duplicate successfully!", {
+							id: toastId,
+							duration: 2000,
+						});
+						handleOpen();
+					}
+				});
+		} catch (error) {
+			toast.error("Something went wrong!", {
+				id: toastId,
+				duration: 2000,
+			});
+		}
+	};
 
-  return (
-    <>
-      <Button
-        placeholder={""}
-        variant="outlined"
-        color="blue"
-        className="py-2 px-3"
-        onClick={handleOpen}
-      >
-        Edit & Duplicate
-      </Button>
-      <Dialog placeholder={""} open={open} handler={handleOpen}>
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex justify-between items-center">
-              <DialogHeader placeholder={""}>Edit & Duplicate</DialogHeader>
-              <div
-                onClick={handleOpen}
-                className="me-4 cursor-pointer border-2 border-red-400 p-1"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
-                  />
-                </svg>
-              </div>
-            </div>
-            <DialogBody placeholder={""}>
-              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 my-5">
-                <div>
-                  <Input
-                    {...register("productName")}
-                    defaultValue={glassData?.data?.productName}
-                    type="text"
-                    crossOrigin={""}
-                    placeholder=""
-                    color="indigo"
-                    label="Product Name"
-                  />
-                </div>
-                <div>
-                  <Input
-                    {...register("productPrice")}
-                    defaultValue={glassData?.data?.productPrice}
-                    type="number"
-                    crossOrigin={""}
-                    placeholder=""
-                    color="indigo"
-                    label="Product Price"
-                  />
-                </div>
-                <div>
-                  <Input
-                    {...register("productQuantity")}
-                    defaultValue={glassData?.data?.productQuantity}
-                    type="number"
-                    crossOrigin={""}
-                    placeholder=""
-                    color="indigo"
-                    label="Product Quantity"
-                  />
-                </div>
-                <div>
-                  <Input
-                    {...register("frameMaterial")}
-                    defaultValue={glassData?.data?.frameMaterial}
-                    type="text"
-                    crossOrigin={""}
-                    placeholder=""
-                    color="indigo"
-                    label="Frame Material"
-                  />
-                </div>
-                <div>
-                  <Input
-                    {...register("frameShape")}
-                    defaultValue={glassData?.data?.frameShape}
-                    type="text"
-                    crossOrigin={""}
-                    placeholder=""
-                    color="indigo"
-                    label="Frame Shape"
-                  />
-                </div>
-                <div>
-                  <Input
-                    {...register("lensType")}
-                    defaultValue={glassData?.data?.lensType}
-                    type="text"
-                    crossOrigin={""}
-                    placeholder=""
-                    color="indigo"
-                    label="Lens Type"
-                  />
-                </div>
-                <div>
-                  <Input
-                    {...register("brand")}
-                    defaultValue={glassData?.data?.brand}
-                    type="text"
-                    crossOrigin={""}
-                    placeholder=""
-                    color="indigo"
-                    label="Brand"
-                  />
-                </div>
-                <div>
-                  <Input
-                    {...register("color")}
-                    defaultValue={glassData?.data?.color}
-                    type="text"
-                    crossOrigin={""}
-                    placeholder=""
-                    color="indigo"
-                    label="Color"
-                  />
-                </div>
-                <div>
-                  <select
-                    className="w-full py-2 rounded-lg border border-purple-50 text-sm text-gray-500"
-                    {...register("gender")}
-                    defaultValue={glassData?.data?.gender}
-                  >
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </div>
-                <div>
-                  <Input
-                    {...register("productImage")}
-                    type="file"
-                    crossOrigin={""}
-                    placeholder=""
-                    color="indigo"
-                    label="Product Image"
-                  />
-                </div>
-              </div>
-            </DialogBody>
-            <DialogFooter placeholder={""}>
-              <Button
-                type="submit"
-                placeholder={""}
-                variant="gradient"
-                color="green"
-              >
-                <span>Duplicate</span>
-              </Button>
-            </DialogFooter>
-          </form>
-        </div>
-      </Dialog>
-    </>
-  );
+	return (
+		<>
+			<Button
+				placeholder={""}
+				variant="outlined"
+				color="blue"
+				className="py-2 px-3"
+				onClick={handleOpen}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="currentColor"
+					className="w-6 h-6"
+				>
+					<path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75 0 0 1 3.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75 0 0 1 21 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875 0 0 1 7.5 16.125V3.375Z" />
+					<path d="M15 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 17.25 7.5h-1.875A.375.375 0 0 1 15 7.125V5.25ZM4.875 6H6v10.125A3.375 3.375 0 0 0 9.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V7.875C3 6.839 3.84 6 4.875 6Z" />
+				</svg>
+			</Button>
+			<Dialog placeholder={""} open={open} handler={handleOpen}>
+				<div>
+					<form onSubmit={handleSubmit(onSubmit)}>
+						<div className="flex justify-between items-center">
+							<DialogHeader
+								className="text-indigo-900"
+								placeholder={""}
+							>
+								Edit & Duplicate
+							</DialogHeader>
+							<div
+								onClick={handleOpen}
+								className="me-4 cursor-pointer border-2 border-red-400 p-1"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="w-6 h-6"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M6 18 18 6M6 6l12 12"
+									/>
+								</svg>
+							</div>
+						</div>
+						<DialogBody placeholder={""}>
+							<div className="grid lg:grid-cols-2 grid-cols-1 gap-4 my-5">
+								<div>
+									<Input
+										{...register("productName")}
+										defaultValue={
+											glassData?.data?.productName
+										}
+										type="text"
+										crossOrigin={""}
+										placeholder=""
+										color="indigo"
+										label="Product Name"
+									/>
+								</div>
+								<div>
+									<Input
+										{...register("productPrice")}
+										defaultValue={
+											glassData?.data?.productPrice
+										}
+										type="number"
+										crossOrigin={""}
+										placeholder=""
+										color="indigo"
+										label="Product Price"
+									/>
+								</div>
+								<div>
+									<Input
+										{...register("productQuantity")}
+										defaultValue={
+											glassData?.data?.productQuantity
+										}
+										type="number"
+										crossOrigin={""}
+										placeholder=""
+										color="indigo"
+										label="Product Quantity"
+									/>
+								</div>
+								<div>
+									<Input
+										{...register("frameMaterial")}
+										defaultValue={
+											glassData?.data?.frameMaterial
+										}
+										type="text"
+										crossOrigin={""}
+										placeholder=""
+										color="indigo"
+										label="Frame Material"
+									/>
+								</div>
+								<div>
+									<Input
+										{...register("frameShape")}
+										defaultValue={
+											glassData?.data?.frameShape
+										}
+										type="text"
+										crossOrigin={""}
+										placeholder=""
+										color="indigo"
+										label="Frame Shape"
+									/>
+								</div>
+								<div>
+									<Input
+										{...register("lensType")}
+										defaultValue={glassData?.data?.lensType}
+										type="text"
+										crossOrigin={""}
+										placeholder=""
+										color="indigo"
+										label="Lens Type"
+									/>
+								</div>
+								<div>
+									<Input
+										{...register("brand")}
+										defaultValue={glassData?.data?.brand}
+										type="text"
+										crossOrigin={""}
+										placeholder=""
+										color="indigo"
+										label="Brand"
+									/>
+								</div>
+								<div>
+									<Input
+										{...register("color")}
+										defaultValue={glassData?.data?.color}
+										type="text"
+										crossOrigin={""}
+										placeholder=""
+										color="indigo"
+										label="Color"
+									/>
+								</div>
+								<div>
+									<select
+										className="w-full py-2 rounded-lg border border-purple-50 text-sm text-gray-500"
+										{...register("gender")}
+										defaultValue={glassData?.data?.gender}
+									>
+										<option value="Male">Male</option>
+										<option value="Female">Female</option>
+									</select>
+								</div>
+								<div>
+									<Input
+										{...register("productImage")}
+										type="file"
+										crossOrigin={""}
+										placeholder=""
+										color="indigo"
+										label="Product Image"
+									/>
+								</div>
+							</div>
+						</DialogBody>
+						<DialogFooter placeholder={""}>
+							<Button
+								type="submit"
+								placeholder={""}
+								variant="gradient"
+								color="indigo"
+							>
+								<span>Duplicate</span>
+							</Button>
+						</DialogFooter>
+					</form>
+				</div>
+			</Dialog>
+		</>
+	);
 };
 
 export default EditDuplicateModal;

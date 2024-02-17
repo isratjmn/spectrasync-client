@@ -109,12 +109,12 @@ const BarChartComponent = () => {
         <CartesianGrid strokeDasharray="3 3" />
         <Bar
           dataKey="totalSalesPrice"
-          fill="#8884d8"
+          fill="#B3B1F6"
           background={{ fill: "#eee" }}
         />
         <Bar
           dataKey="totalQuantity"
-          fill="#23a145"
+          fill="#50586D"
           background={{ fill: "#eee" }}
         />
       </BarChart>

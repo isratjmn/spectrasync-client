@@ -28,13 +28,13 @@ const Login = () => {
 	};
 
 	return (
-		<div className="bg-blue-gray-900 dark:bg-gray-800 h-screen overflow-hidden flex items-center justify-center">
-			<div className="bg-white lg:w-6/12 md:7/12 w-10/12 shadow-3xl rounded-xl">
+		<div className="bg-indigo-100 dark:bg-cyan-100 h-screen overflow-hidden flex items-center justify-center">
+			<div className="bg-indigo-200 lg:w-6/12 md:7/12 w-10/12 shadow-3xl rounded-xl">
 				<div className="mt-6">
-					<h1 className="text-2xl text-center">
+					<h1 className="text-2xl text-center font-extrabold">
 						Login to{" "}
-						<span className="font-semibold text-3xl">
-							Eye Glass
+						<span className=" text-2xl font-black text-deep-purple-900">
+							SpectraSync Eye GLasses
 						</span>
 					</h1>
 				</div>
@@ -42,7 +42,7 @@ const Login = () => {
 					onSubmit={handleSubmit(onSubmit)}
 					className="p-12 md:p-24"
 				>
-					<div className="flex items-center text-lg mb-6 md:mb-8">
+					<div className="flex items-center text-lg mb-6 md:mb-6">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
@@ -78,7 +78,7 @@ const Login = () => {
 							placeholder="Password"
 						/>
 					</div>
-					<button className="bg-gradient-to-b from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full rounded">
+					<button className="bg-gradient-to-b from-deep-purple-800 to-purple-900 font-medium p-2 md:p-4 text-white uppercase w-full rounded">
 						Login
 					</button>
 					<div className="mt-4">
