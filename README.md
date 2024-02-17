@@ -1,10 +1,10 @@
 ### SpectraSync Eye Glasses Management Dashboard
 
-#### Live Project Link: https://moonlit-tapioca-f8acb0.netlify.app/
+#### Live Project Link: https://spectrasync-glasses.netlify.app/
 
-#### Client Side Repository: https://github.com/Porgramming-Hero-web-course/l2b2-full-stack-a5-client-side-isratjmn
+#### Client Side Repository: https://github.com/Porgramming-Hero-web-course/l2-b2-assignment-6-fronten-isratjmn
 
-#### Server Side Repository: https://github.com/Porgramming-Hero-web-course/l2b2-full-stack-a5-server-side-isratjmn
+#### Server Side Repository: https://github.com/Porgramming-Hero-web-course/l2-b2-assignment-6-backend-isratjmn
 
 #### Video Documentation Link: https://drive.google.com/file/d/14wifS3SNWlKdF7NRnItt0TF3QuT7fIw2/view?usp=sharing
 
