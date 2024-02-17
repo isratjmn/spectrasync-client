@@ -6,7 +6,7 @@
 
 #### Server Side Repository: https://github.com/Porgramming-Hero-web-course/l2-b2-assignment-6-backend-isratjmn
 
-#### Video Documentation Link: https://drive.google.com/file/d/14wifS3SNWlKdF7NRnItt0TF3QuT7fIw2/view?usp=sharing
+#### Video Documentation Link: https://drive.google.com/file/d/1jbPs0LaS6XfTil7beoIAbImbWFo3FOcc/view?usp=sharing
 
 - The Eye Glasses Management Dashboard is a comprehensive application designed to efficiently manage eyeglasses inventory, track sales, and analyze sales history. It incorporates features such as authentication, CRUD operations, state management, real-time UI updates, and eyeglasses filtering.
 
