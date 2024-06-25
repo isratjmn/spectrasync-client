@@ -12,7 +12,6 @@ const Register = () => {
 	const { register, handleSubmit } = useForm();
 	const navigate = useNavigate();
 	const [showPassword, setShowPassword] = useState(false);
-
 	const onSubmit = async (data: FieldValues) => {
 		const toastId = toast.loading("Please wait...");
 		try {
@@ -54,20 +53,17 @@ const Register = () => {
 
 	return (
 		<div className="bg-indigo-100 dark:bg-gray-800 h-screen overflow-hidden flex items-center justify-center">
-			<div className="bg-indigo-200 lg:w-6/12 md:7/12 w-10/12 shadow-3xl rounded-xl">
+			<div className="bg-indigo-200 lg:w-5/12 md:6/12 w-10/12 shadow-3xl rounded-xl">
 				<div className="mt-6">
-					<h1 className="text-xl font-extrabold text-center">
-						Create Your{" "}
-						<span className="text-deep-purple-900 font-bolder text-2xl">
+					<h1 className="text-xl pt-8 font-extrabold text-center">
+						Create
+						<span className="text-deep-purple-900 font-bolder text-2xl px-2">
 							SpectraSync Glassess
-						</span>{" "}
+						</span> 
 						Account
 					</h1>
 				</div>
-				<form
-					onSubmit={handleSubmit(onSubmit)}
-					className="p-10 md:px-20 md:py-10"
-				>
+				<form onSubmit={handleSubmit(onSubmit)} className="md:p-14">
 					<div className="flex items-center text-lg mb-6 md:mb-8">
 						<svg
 							className="absolute ml-3"
@@ -80,7 +76,7 @@ const Register = () => {
 							{...register("name")}
 							type="text"
 							id="name"
-							className="bg-gray-200 rounded pl-12 py-2 md:py-4 focus:outline-none w-full"
+							className="rounded pl-12 py-2 md:py-4 focus:outline-none w-full"
 							placeholder="Name"
 						/>
 					</div>
@@ -99,11 +95,11 @@ const Register = () => {
 							{...register("email")}
 							type="email"
 							id="email"
-							className="bg-gray-200 rounded pl-12 py-2 md:py-4 focus:outline-none w-full"
+							className="rounded pl-12 py-2 md:py-4 focus:outline-none w-full"
 							placeholder="Email"
 						/>
 					</div>
-					
+
 					<div className="flex items-center text-lg mb-6 md:mb-8 relative">
 						<svg
 							className="absolute ml-3 cursor-pointer"
@@ -118,7 +114,7 @@ const Register = () => {
 							{...register("password")}
 							type={showPassword ? "text" : "password"}
 							id="password"
-							className="bg-gray-200 rounded pl-12 py-2 md:py-4 focus:outline-none w-full"
+							className="rounded pl-12 py-2 md:py-4 focus:outline-none w-full"
 							placeholder="Password"
 						/>
 					</div>

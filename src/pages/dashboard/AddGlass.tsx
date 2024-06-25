@@ -7,12 +7,10 @@ import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 const image_upload_token = import.meta.env.VITE_image_upload_token;
 
 const AddGlass = () => {
-	const image_upload_url = `https://api.imgbb.com/1/upload?expiration=600&key=${image_upload_token}`;
-
+	const image_upload_url = `https://api.imgbb.com/1/upload?key=${image_upload_token}`;
 	const { register, handleSubmit, reset } = useForm();
 	const [addGlass] = useAddEyeGlassMutation();
 	const user = useAppSelector(selectCurrentUser);
-
 	const onSubmit = (data: FieldValues) => {
 		const toastId = toast.loading("Please wait...");
 		try {
@@ -31,7 +29,6 @@ const AddGlass = () => {
 						const productQuantityConvert = Number(
 							data.productQuantity
 						);
-
 						const {
 							productName,
 							frameMaterial,
@@ -41,7 +38,6 @@ const AddGlass = () => {
 							gender,
 							color,
 						} = data;
-
 						const glassData = {
 							productName,
 							productPrice: productPriceConvert,
@@ -72,12 +68,12 @@ const AddGlass = () => {
 	};
 
 	return (
-		<div className="my-4 mx-auto">
-			<h1 className="font-extrabold text-2xl text-deep-purple-900 mt-10 py-4 mx-auto ms-32 lg:ms-24">
+		<div className="mt-4 mx-auto max-w-2xl p-4 border bg-white rounded-lg shadow-md">
+			<h1 className="font-extrabold text-3xl text-deep-purple-900 mt-6 mb-10 mx-auto text-center">
 				Add Glass
 			</h1>
 			<form
-				className=" w-[380px] md:w-[600px] lg:w-[60%] ms-32 lg:ms-24"
+				className=" w-[380px] md:w-[600px] lg:w-[90%] mx-auto mb-10"
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<div className="grid lg:grid-cols-2 grid-cols-1 gap-4 my-5">
@@ -164,7 +160,7 @@ const AddGlass = () => {
 					<div>
 						<div className="relative">
 							<select
-								className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+								className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 								{...register("gender")}
 							>
 								<option className="py-2">Select Gender</option>
@@ -200,13 +196,13 @@ const AddGlass = () => {
 						/>
 					</div>
 				</div>
-				<div className="flex float-end">
+				<div className="flex justify-end">
 					<Button
 						loading={false}
 						fullWidth
 						type="submit"
 						variant="gradient"
-						size="sm"
+						size="md"
 						color="indigo"
 						placeholder={""}
 						className="w-full"

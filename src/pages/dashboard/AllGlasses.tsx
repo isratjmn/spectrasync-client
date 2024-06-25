@@ -9,6 +9,7 @@ import {
 	Tooltip,
 	CardFooter,
 } from "@material-tailwind/react";
+import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import {
 	useDeleteManyEyeGlassMutation,
 	useGetAllEyeGlassQuery,
@@ -50,11 +51,9 @@ const AllGlasses = () => {
 		role: user?.role,
 	};
 	const { data: eyeGlasses, isLoading } = useGetAllEyeGlassQuery(query);
-
 	const handleCheckboxClick = (id: string) => {
 		if (productsId) {
 			const index = productsId.indexOf(id);
-
 			if (index === -1) {
 				setProductsId([...productsId, id]);
 			} else {
@@ -105,7 +104,6 @@ const AllGlasses = () => {
 		"Brand",
 		"Lens",
 		"Material",
-		"Edit & Duplicate",
 		"Update",
 		"Delete",
 		"Sell",
@@ -156,7 +154,7 @@ const AllGlasses = () => {
 						<div className="block h-3 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray-300 rounded-full text-inherit w-full">
 							&nbsp;
 						</div>
-						<div className="block h-3 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray-300 rounded-full text-inherit w-full">
+						<div className="block h-3 mb-2 font-sans text-base antialiased leading-relaxed bg-gray-300 rounded-full font-black text-inherit w-full">
 							&nbsp;
 						</div>
 						<div className="block h-3 mb-2 font-sans text-base antialiased font-light leading-relaxed bg-gray-300 rounded-full text-inherit w-full">
@@ -202,7 +200,7 @@ const AllGlasses = () => {
 				shadow={false}
 				className="rounded-none "
 			>
-				<div className="flex flex-col items-center justify-between gap-4 mb-6 md:flex-row">
+				<div className="flex flex-col mx-2 items-center justify-between gap-4 mb-6 md:flex-row">
 					<div>
 						<Typography
 							placeholder={""}
@@ -221,7 +219,7 @@ const AllGlasses = () => {
 						/>
 					</div>
 				</div>
-				<div className="mt-4 mb-14 flex items-center justify-between gap-8">
+				<div className="mt-4 mb-14 flex items-center justify-between gap-5">
 					<div>
 						<select
 							value={material}
@@ -235,7 +233,7 @@ const AllGlasses = () => {
 							<option value="Plastic">Plastic</option>
 							<option value="Acetate">Acetate</option>
 							<option value="Wood">Wood</option>{" "}
-							<option value="Titanium">Titanium</option>{" "}
+							<option value="Titanium">Titanium</option>
 						</select>
 					</div>
 					<div>
@@ -321,13 +319,13 @@ const AllGlasses = () => {
 						<input
 							onChange={(e) => setMaxPrice(e.target.value)}
 							type="number"
-							className="border border-gray-400 hover:border-gray-500 px-2 py-2 rounded focus:outline-none focus:shadow-outline w-20 text-sm"
+							className="border border-gray-400 hover:border-gray-500 px-2 py-2 rounded focus:outline-none focus:shadow-outline w-20 text-sm mr-8"
 							placeholder="Max"
 						/>
 					</div>
 				</div>
 			</CardHeader>
-			<CardBody placeholder={""} className=" px-0 ">
+			<CardBody placeholder={""} className="px-0">
 				<table className="mt-4 w-[100%] table-auto text-left">
 					<thead>
 						<tr>
@@ -356,7 +354,8 @@ const AllGlasses = () => {
 			</CardBody>
 			<CardFooter
 				placeholder={""}
-				className="flex items-center justify-between border-t border-blue-gray-50 p-4"
+				className="flex items-center justify-between
+				border-t border-blue-gray-50 p-4"
 			>
 				<Typography
 					placeholder={""}
@@ -371,10 +370,10 @@ const AllGlasses = () => {
 						onClick={() => setPage(page - 1)}
 						placeholder={""}
 						variant="outlined"
-						size="sm"
+						size="md"
 						disabled={page === 1}
 					>
-						Previous
+						<FaCircleChevronLeft className="text-2xl text-indigo-900" />
 					</Button>
 					<Button
 						onClick={() => setPage(page + 1)}
@@ -383,7 +382,7 @@ const AllGlasses = () => {
 						size="sm"
 						disabled={eyeGlasses?.data?.length < 5}
 					>
-						Next
+						<FaCircleChevronRight className="text-2xl text-indigo-900" />
 					</Button>
 				</div>
 			</CardFooter>

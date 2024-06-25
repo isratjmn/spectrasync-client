@@ -36,7 +36,7 @@ const SalesCard = ({ sales }: Tprops) => {
               <td className={classes}>
                 <div className="flex items-center gap-3">
                   <img
-                    className="h-8 w-12 rounded-lg object-cover object-center"
+                    className="h-8 w-12 object-cover object-center"
                     src={
                       productId?.productImage
                         ? productId?.productImage

@@ -107,12 +107,12 @@ const PieChartComponent = () => {
       </Pie>
       <Tooltip
         wrapperStyle={{
-          fontSize: "16px",
+          fontSize: "14px",
         }}
       />
       <Legend
         wrapperStyle={{
-          fontSize: "16px",
+          fontSize: "14px",
         }}
       />
     </PieChart>

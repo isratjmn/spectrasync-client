@@ -4,7 +4,6 @@ import {
 	Tooltip,
 	Typography,
 } from "@material-tailwind/react";
-import EditDuplicateModal from "./EditDuplicateModal";
 import UpdateModal from "./UpdateModal";
 import fallbackImage from "../../assets/no-image.png";
 import { useDeleteEyeGlassMutation } from "../../redux/features/eyeGlass/eyeGlassApi";
@@ -92,7 +91,7 @@ const ProductCard: React.FC<
 							<td className={classes}>
 								<div className="flex items-center gap-3">
 									<img
-										className="h-8 w-12 rounded-lg object-cover object-center"
+										className="h-8 w-12 object-cover object-center"
 										src={
 											productImage
 												? productImage
@@ -163,9 +162,7 @@ const ProductCard: React.FC<
 									{frameMaterial}
 								</Typography>
 							</td>
-							<td className={classes}>
-								<EditDuplicateModal id={_id} />
-							</td>
+							
 							<td className={classes}>
 								<UpdateModal id={_id} />
 							</td>

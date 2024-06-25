@@ -20,7 +20,7 @@ const UpdateModal = ({ id }: { id: string }) => {
 	const [open, setOpen] = useState(false);
 	const { register, handleSubmit } = useForm();
 	const { data: glassData } = useGetEyeGlassQuery(id);
-	const image_upload_url = `https://api.imgbb.com/1/upload?expiration=600&key=${image_upload_token}`;
+	const image_upload_url = `https://api.imgbb.com/1/upload?key=${image_upload_token}`;
 	const [updateGlass] = useUpdateEyeGlassMutation();
 	const handleOpen = () => setOpen(!open);
 
@@ -131,7 +131,10 @@ const UpdateModal = ({ id }: { id: string }) => {
 				<div>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<div className="flex justify-between items-center">
-							<DialogHeader className="text-indigo-900 font-bold" placeholder={""}>
+							<DialogHeader
+								className="text-indigo-900 font-bold"
+								placeholder={""}
+							>
 								Update Glass
 							</DialogHeader>
 							<div
@@ -256,7 +259,7 @@ const UpdateModal = ({ id }: { id: string }) => {
 								</div>
 								<div>
 									<select
-										className="w-full py-2 rounded-lg border border-purple-50 text-sm text-gray-500"
+										className="w-full py-2 border border-purple-50 text-sm text-gray-500"
 										{...register("gender")}
 										defaultValue={glassData?.data?.gender}
 									>
